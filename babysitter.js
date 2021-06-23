@@ -15,4 +15,7 @@ module.exports = {
         
         return isValid;
     },
+    isValidEntTime(endTime) {
+        return null;
+    },
 }

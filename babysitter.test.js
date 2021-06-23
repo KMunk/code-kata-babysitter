@@ -24,3 +24,18 @@ test('starts no earlier than 5:00PM', () =>{
     expect(babysitter.isValidStartTime(startTime))
         .toBe(true);
 });
+
+test('leaves no later than 4:00 AM', () => {
+    let endTime = new Date('2021-06-23 04:00.00');
+
+    expect(babysitter.isValidEndTime(endTime))
+        .toBe(true);
+    
+    endTime = new Date('2021-06-23 05:00.00');
+    expect(babysitter.isValidEndTime(endTime))
+        .toBe(false);
+
+    endTime = new Date('2021-06-23 03:00.000');
+    expect(babysitter.isValidEndTime(endTime))
+        .toBe(true);
+});
