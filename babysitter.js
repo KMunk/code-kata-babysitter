@@ -16,6 +16,17 @@ module.exports = {
         return isValid;
     },
     calculatePay(workingShift) {
-        return null;
+        let preBedTimePay = 0;
+        console.log(workingShift);
+        if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime)){
+            let timeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
+            let hours = Math.floor(timeDifference / 3600000) % 24;
+            preBedTimePay = hours * 12;
+            console.log(hours);
+        }
+
+        return {
+            preBedTimePay
+        };
     }
 }
