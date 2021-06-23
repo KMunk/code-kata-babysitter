@@ -15,7 +15,12 @@ module.exports = {
         
         return isValid;
     },
-    isValidEntTime(endTime) {
-        return null;
+    isValidEndTime(endTime) {
+        let isValid = false;
+
+        if(endTime instanceof Date){
+            isValid = endTime.getHours() <= 4
+        }
+        return isValid;
     },
 }
