@@ -7,6 +7,12 @@ I want to calculate my nightly charge
 
 module.exports = {
     isValidStartTime(startTime) {
-        return null;
+        let isValid = false;
+
+        if(startTime instanceof Date){
+            isValid = startTime.getHours() >= 17;
+        }
+        
+        return isValid;
     },
 }
