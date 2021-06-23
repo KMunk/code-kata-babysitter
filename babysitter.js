@@ -15,4 +15,7 @@ module.exports = {
         
         return isValid;
     },
+    calculatePay(workingShift) {
+        return null;
+    }
 }

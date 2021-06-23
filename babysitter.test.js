@@ -47,3 +47,13 @@ test('leaves no later than 4:00 AM', () => {
     expect(babysitter.isValidWorkingTime(endTime))
         .toBe(true);
 });
+
+test('gets paid $12/hour from start-time to bedtime', () => {
+    let workingShift = {
+        startTime: new Date('2021-06-22 18:00.000'),
+        bedTime: new Date('2021-06-22 21:00.000'),
+    }
+
+    expect(babysitter.calculatePay(workingShift).preBedTimePay)
+        .toBe(36);
+});
