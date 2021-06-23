@@ -6,21 +6,13 @@ I want to calculate my nightly charge
 */
 
 module.exports = {
-    isValidStartTime(startTime) {
+    isValidWorkingTime(workingTime) {
         let isValid = false;
 
-        if(startTime instanceof Date){
-            isValid = startTime.getHours() >= 17;
+        if(workingTime instanceof Date){
+            isValid = workingTime.getHours() >= 17 || workingTime.getHours() <= 4;
         }
         
-        return isValid;
-    },
-    isValidEndTime(endTime) {
-        let isValid = false;
-
-        if(endTime instanceof Date){
-            isValid = endTime.getHours() <= 4
-        }
         return isValid;
     },
 }
