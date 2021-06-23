@@ -52,6 +52,7 @@ test('gets paid $12/hour from start-time to bedtime', () => {
     let workingShift = {
         startTime: new Date('2021-06-22 18:00.000'),
         bedTime: new Date('2021-06-22 21:00.000'),
+        endTime: new Date('2021-06-23 04:00.000'),
     }
 
     expect(babysitter.calculatePay(workingShift).preBedTimePay)
@@ -67,4 +68,22 @@ test('gets paid $8/hour from bedtime to midnight', () => {
 
     expect(babysitter.calculatePay(workingShift).bedtimeToMidnightPay)
         .toBe(24);
+
+    workingShift = {
+        startTime: new Date('2021-06-22 18:00.000'),
+        bedTime: new Date('2021-06-23 0:00.000'),
+        endTime: new Date('2021-06-23 04:00.000'),
+    }
+
+    expect(babysitter.calculatePay(workingShift).bedtimeToMidnightPay)
+        .toBe(0);
+
+    workingShift = {
+        startTime: new Date('2021-06-22 18:00.000'),
+        bedTime: new Date('2021-06-22 20:00.000'),
+        endTime: new Date('2021-06-22 21:00.000'),
+    }
+
+    expect(babysitter.calculatePay(workingShift).bedtimeToMidnightPay)
+        .toBe(8);
 });

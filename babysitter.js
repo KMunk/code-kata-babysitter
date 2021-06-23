@@ -5,6 +5,8 @@ In order to get paid for 1 night of work
 I want to calculate my nightly charge
 */
 const preBedTimeHourlyRate = 12;
+const bedtimeToMidnightHourlyRate = 8;
+
 const earliestStartHour = 17;
 const latestEndHour = 4;
 
@@ -20,15 +22,25 @@ module.exports = {
     },
     calculatePay(workingShift) {
         let preBedTimePay = 0;
-        
-        if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime)){
-            let timeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
-            let hours = Math.floor(timeDifference / 3600000) % 24;
-            preBedTimePay = hours * preBedTimeHourlyRate;
+        let bedtimeToMidnightPay = 0;
+
+        if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
+            let preBedTimeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
+            let preBedHours = Math.floor(preBedTimeDifference / 3600000) % 24;
+
+            preBedTimePay = preBedHours * preBedTimeHourlyRate;
+
+            let bedToEndTimeTimeDifference = Math.abs(workingShift.endTime - workingShift.bedTime);
+            let bedToEndTimeHours = Math.floor(bedToEndTimeTimeDifference / 3600000) % 24;
+            let bedToMidnightHours = Math.abs(24 - workingShift.bedTime.getHours()) % 24;
+            let bedTimeHours = Math.min(bedToMidnightHours,bedToEndTimeHours);
+
+            bedtimeToMidnightPay = bedTimeHours * bedtimeToMidnightHourlyRate;
         }
 
         return {
-            preBedTimePay
+            preBedTimePay,
+            bedtimeToMidnightPay
         };
     }
 }
