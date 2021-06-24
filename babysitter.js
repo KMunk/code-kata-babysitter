@@ -32,7 +32,7 @@ module.exports = {
             //total time difference should be less than 1 night or the max total working range
             let maxWorkHours = (24 + latestEndHour - earliestStartHour) % 24;
             let workingDifference = Math.abs(workingShift.endTime - workingShift.startTime);
-            let workingHours = Math.floor(workingDifference / (1000 * 60 * 60)) % 24;
+            let workingHours = Math.floor(workingDifference / (1000 * 60 * 60));
 
             isValid = isValid && workingHours <= maxWorkHours;
         }
