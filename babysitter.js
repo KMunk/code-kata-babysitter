@@ -22,7 +22,22 @@ module.exports = {
         return isValid;
     },
     isValidWorkingShift(workingShift) {
-        return null;
+        let isValid = false;
+
+        if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
+            //bedtime should be between start and end time
+            isValid = (workingShift.startTime < workingShift.bedTime);
+            isValid = isValid && workingShift.bedTime < workingShift.endTime;
+
+            //total time difference should be less than 1 night or the max total working range
+            let maxWorkHours = (24 + latestEndHour - earliestStartHour) % 24;
+            let workingDifference = Math.abs(workingShift.endTime - workingShift.startTime);
+            let workingHours = Math.floor(workingDifference / (1000 * 60 * 60)) % 24;
+
+            isValid = isValid && workingHours <= maxWorkHours;
+        }
+
+        return isValid;
     },
     calculatePay(workingShift) {
         let preBedTimePay = 0;
