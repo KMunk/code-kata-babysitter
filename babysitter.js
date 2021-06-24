@@ -25,11 +25,12 @@ module.exports = {
         let preBedTimePay = 0;
         let bedtimeToMidnightPay = 0;
         let postMidnightPay = 0;
+        let totalPay = 0;
 
         if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
             let preBedTimeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
             let preBedHours = Math.floor(preBedTimeDifference / 3600000) % 24;
-
+            
             preBedTimePay = preBedHours * preBedTimeHourlyRate;
 
             if(workingShift.bedTime.getHours() >= 17 && workingShift.bedTime.getHours() < 24){
@@ -48,12 +49,15 @@ module.exports = {
                 }
                 postMidnightPay = postMidnightHours * postMidnightHourlyRate
             }
+            
+            totalPay = preBedTimePay + bedtimeToMidnightPay + postMidnightPay
         }
 
         return {
             preBedTimePay,
             bedtimeToMidnightPay,
             postMidnightPay,
+            totalPay,
         };
     }
 }
