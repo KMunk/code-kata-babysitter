@@ -32,13 +32,15 @@ module.exports = {
 
             preBedTimePay = preBedHours * preBedTimeHourlyRate;
 
-            let bedToEndTimeTimeDifference = Math.abs(workingShift.endTime - workingShift.bedTime);
-            let bedToEndTimeHours = Math.floor(bedToEndTimeTimeDifference / 3600000) % 24;
-            let bedToMidnightHours = Math.abs(24 - workingShift.bedTime.getHours()) % 24;
-            let bedTimeHours = Math.min(bedToMidnightHours,bedToEndTimeHours);
-
-            bedtimeToMidnightPay = bedTimeHours * bedtimeToMidnightHourlyRate;
-
+            if(workingShift.bedTime.getHours() >= 17 && workingShift.bedTime.getHours() < 24){
+                let bedToEndTimeTimeDifference = Math.abs(workingShift.endTime - workingShift.bedTime);
+                let bedToEndTimeHours = Math.floor(bedToEndTimeTimeDifference / 3600000) % 24;
+                let bedToMidnightHours = Math.abs(24 - workingShift.bedTime.getHours()) % 24;
+                let bedTimeHours = Math.min(bedToMidnightHours,bedToEndTimeHours);
+    
+                bedtimeToMidnightPay = bedTimeHours * bedtimeToMidnightHourlyRate;
+            }
+            
             if(workingShift.endTime.getHours() > 0 && workingShift.endTime.getHours() <= 4){
                 let postMidnightHours = workingShift.endTime.getHours();
                 if(workingShift.bedTime.getHours() > 0 && workingShift.bedTime.getHours() <= 4){

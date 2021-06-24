@@ -71,7 +71,7 @@ test('gets paid $8/hour from bedtime to midnight', () => {
 
     workingShift = {
         startTime: new Date('2021-06-22 18:00.000'),
-        bedTime: new Date('2021-06-23 0:00.000'),
+        bedTime: new Date('2021-06-23 1:00.000'),
         endTime: new Date('2021-06-23 04:00.000'),
     }
 
