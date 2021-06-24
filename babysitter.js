@@ -26,6 +26,7 @@ module.exports = {
         let bedtimeToMidnightPay = 0;
         let postMidnightPay = 0;
         let totalPay = 0;
+        let errors = [];
 
         if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
             let preBedTimeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
@@ -52,12 +53,16 @@ module.exports = {
             
             totalPay = preBedTimePay + bedtimeToMidnightPay + postMidnightPay
         }
+        else{
+            errors.push("The provided working shift is invalid."); 
+        }
 
         return {
             preBedTimePay,
             bedtimeToMidnightPay,
             postMidnightPay,
             totalPay,
+            errors,
         };
     }
 }
