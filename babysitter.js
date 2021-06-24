@@ -46,7 +46,7 @@ module.exports = {
         let totalPay = 0;
         let errors = [];
 
-        if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
+        if(this.isValidWorkingShift(workingShift)){
             let preBedTimeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
             let preBedHours = Math.floor(preBedTimeDifference / 3600000) % 24;
             
