@@ -106,4 +106,15 @@ test('gets paid $16/hour from midnight to end of job', () =>{
 
     expect(babysitter.calculatePay(workingShift).postMidnightPay)
         .toBe(48);
-})
+});
+
+test('gets paid for full hours (no fractional hours)', () => {
+    let workingShift = {
+        startTime: new Date('2021-06-22 18:30.000'),
+        bedTime: new Date('2021-06-22 21:00.000'),
+        endTime: new Date('2021-06-23 03:30.000'),
+    }
+
+    expect(babysitter.calculatePay(workingShift).totalPay)
+        .toBe(96);
+});
