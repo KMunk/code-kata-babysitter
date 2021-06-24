@@ -95,6 +95,15 @@ test('gets paid $16/hour from midnight to end of job', () =>{
         endTime: new Date('2021-06-23 04:00.000'),
     }
 
-    expect(babysitter.calculatePay(workingShift).midnightToEndTimePay)
+    expect(babysitter.calculatePay(workingShift).postMidnightPay)
         .toBe(64);
+
+    workingShift = {
+        startTime: new Date('2021-06-22 18:00.000'),
+        bedTime: new Date('2021-06-23 01:00.000'),
+        endTime: new Date('2021-06-23 04:00.000'),
+    }
+
+    expect(babysitter.calculatePay(workingShift).postMidnightPay)
+        .toBe(48);
 })

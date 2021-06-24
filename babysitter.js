@@ -6,6 +6,7 @@ I want to calculate my nightly charge
 */
 const preBedTimeHourlyRate = 12;
 const bedtimeToMidnightHourlyRate = 8;
+const postMidnightHourlyRate = 16;
 
 const earliestStartHour = 17;
 const latestEndHour = 4;
@@ -23,6 +24,7 @@ module.exports = {
     calculatePay(workingShift) {
         let preBedTimePay = 0;
         let bedtimeToMidnightPay = 0;
+        let postMidnightPay = 0;
 
         if(this.isValidWorkingTime(workingShift.startTime) && this.isValidWorkingTime(workingShift.bedTime) && this.isValidWorkingTime(workingShift.endTime)){
             let preBedTimeDifference = Math.abs(workingShift.bedTime - workingShift.startTime);
@@ -36,11 +38,20 @@ module.exports = {
             let bedTimeHours = Math.min(bedToMidnightHours,bedToEndTimeHours);
 
             bedtimeToMidnightPay = bedTimeHours * bedtimeToMidnightHourlyRate;
+
+            if(workingShift.endTime.getHours() > 0 && workingShift.endTime.getHours() <= 4){
+                let postMidnightHours = workingShift.endTime.getHours();
+                if(workingShift.bedTime.getHours() > 0 && workingShift.bedTime.getHours() <= 4){
+                    postMidnightHours -= workingShift.bedTime.getHours();
+                }
+                postMidnightPay = postMidnightHours * postMidnightHourlyRate
+            }
         }
 
         return {
             preBedTimePay,
-            bedtimeToMidnightPay
+            bedtimeToMidnightPay,
+            postMidnightPay,
         };
     }
 }
