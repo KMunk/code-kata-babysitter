@@ -21,6 +21,9 @@ module.exports = {
         
         return isValid;
     },
+    isValidWorkingShift(workingShift) {
+        return null;
+    },
     calculatePay(workingShift) {
         let preBedTimePay = 0;
         let bedtimeToMidnightPay = 0;

@@ -118,3 +118,14 @@ test('gets paid for full hours (no fractional hours)', () => {
     expect(babysitter.calculatePay(workingShift).totalPay)
         .toBe(96);
 });
+
+test('In order to get paid for 1 night of work, I want to calculate my nightly charge', () =>{
+    let workingShift = {
+        startTime: new Date('2021-06-22 18:30.000'),
+        bedTime: new Date('2021-06-22 21:00.000'),
+        endTime: new Date('2021-06-23 03:30.000'),
+    }
+
+    expect(babysitter.isValidWorkingShift(workingShift))
+        .toBe(true);
+});
