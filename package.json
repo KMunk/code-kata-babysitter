@@ -3,6 +3,7 @@
     "jest": "^27.0.5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "calculatePay": "node main.js"
   }
 }
